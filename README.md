@@ -13,7 +13,7 @@
 - [Entity](https://github.com/uncg-csc340/f24-mvc-demo/blob/94d038d37146b1222997b29a827c9634bd3657f6/src/main/java/com/csc340/mvc_demo/student/Student.java#L5)
   - The Student class is annotated as an `@Entity `. This is used by Hibernate (an implementation of the Jakarta Persistence API) to map class attributes to database tables and SQL types.
   - We also annotated with `@Table` to give Hibernate directions to use this specific table name. This is optional but it helps with naming conventions.
-  - Any Entity must have at least one attribute that is annotated as an `@Id`. In our case it's conveniently the `id` attribute.
+  - Any Entity must have at least one attribute that is annotated as an `@Id`. In our case it's conveniently the `studentId` attribute.
     - We are also using an autogeneration strategy for the ID. This way we are not manually assigning IDs to our students. This is optional.
   - An Entity must have a no-argument constructor.
 - [Repository](https://github.com/uncg-csc340/f24-mvc-demo/blob/94d038d37146b1222997b29a827c9634bd3657f6/src/main/java/com/csc340/mvc_demo/student/StudentRepository.java)
@@ -35,7 +35,7 @@
 - Views
   - [`data-th-each="student : ${studentList}"`](https://github.com/uncg-csc340/su24-jpa-demo/blob/2b1e993775bc25f77e141689b8679d39c0bd840f/src/main/resources/templates/student-list.html#L45) => "For each student in studentList, make a table row"
   - `<p data-th-text="${student.id}"></p>` => "The text content for this this paragraph element should be whatever the student id is".
-  - [`<a data-th-href="@{/students/{studentId} (studentId=${student.studentId})}" data-th-text="${student.studentId}"></a>`](https://github.com/uncg-csc340/f24-mvc-demo/blob/94d038d37146b1222997b29a827c9634bd3657f6/src/main/resources/templates/student-list.html#L44) => Make a link that includes a variable in the path. Here the variabe `studentId` is the student id. The text shown by the link is also the student id (otherwise it will be bank and you cannot click on anything).We are using the @ notation because we need access to the objects. Other links that do not include data from the model can be made the regular HTML way.
+  - [`<a data-th-href="@{/students/{studentId} (studentId=${student.studentId})}" data-th-text="${student.studentId}"></a>`](https://github.com/uncg-csc340/f24-mvc-demo/blob/94d038d37146b1222997b29a827c9634bd3657f6/src/main/resources/templates/student-list.html#L44) => Make a link that includes a variable in the path. Here the variabe `studentId` is the student id. The text shown by the link is also the student id (otherwise it will be blank and you cannot click on anything).We are using the @ notation because we need access to the objects. Other links that do not include data from the model can be made the regular HTML way.
   - For any form that sends POST requests with a form body, the input attribute "name" should match the data field. E.g for the student major [`<input type="text" id="major" name="major" placeholder="Major"/>`](https://github.com/uncg-csc340/f24-mvc-demo/blob/94d038d37146b1222997b29a827c9634bd3657f6/src/main/resources/templates/student-list.html#L54) we use `name="major"` to use the setters to match that field. If you do not include the input name attribute, a null will be insterted for that field.
   - Remember that any view must have a correspoding mapping.
     - If you wanted to have a page that is a standalone form, you must make a mapping in the controller that returns the form page as a view.
